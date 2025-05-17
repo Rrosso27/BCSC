@@ -25,18 +25,16 @@ var synchronizedBlockchain = NodeManager.SynchronizeBlockchain();
 TokenSystem.SetBlockchain(synchronizedBlockchain);
 
 // Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    // Aquí puedes dejar otras configuraciones específicas de desarrollo si las tienes
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.MapGet("/", () => "API BCSC corriendo correctamente");
-
 app.Run();
