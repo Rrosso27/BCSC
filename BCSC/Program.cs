@@ -9,6 +9,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8080); // Escucha en el puerto 8080
+});
 
 builder.Services.AddTransient<IServicioEmail, ServicioEmail>();
 builder.Services.AddSingleton<EthereumService>();
@@ -19,7 +23,6 @@ var app = builder.Build();
 NodeManager.InitializeNodes(); // Asegurarse de que los nodos existan
 var synchronizedBlockchain = NodeManager.SynchronizeBlockchain();
 TokenSystem.SetBlockchain(synchronizedBlockchain);
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
